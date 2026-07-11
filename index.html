@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霸道南的爱歌馆</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">深夜伤感情歌</h1>
+        <p class="subtitle">耳机分你一半，心事留在歌里</p>
+
+        <!-- 播放器区域 -->
+        <div class="player-box">
+            <div class="song-info">
+                <h2 id="songName">正在播放</h2>
+                <p id="singer"></p>
+            </div>
+
+            <audio id="audio" preload="auto">
+                <source src="" type="audio/mpeg">
+            
+
+            <!-- 进度条 -->
+            <div class="progress-wrap">
+                <input type="range" id="progress" min="0" max="100" value="0">
+                <span class="time" id="currentTime">00:00</span>
+                <span class="time" id="totalTime">00:00</span>
+            </div>
+
+            <!-- 控制按钮 -->
+            <div class="control">
+                <button id="prev">上一首</button>
+                <button id="playBtn">播放</button>
+                <button id="next">下一首</button>
+            </div>
+        </div>
+
+        <!-- 歌单列表 -->
+        <div class="song-list" id="songList">
+            <!-- JS自动渲染歌曲 -->
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
