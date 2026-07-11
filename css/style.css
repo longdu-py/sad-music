@@ -2,199 +2,151 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, "Microsoft YaHei", sans-serif;
+    font-family: "Microsoft YaHei", sans-serif;
 }
 
 body {
     min-height: 100vh;
+    background: linear-gradient(145deg, #0a0a18, #201028, #120822);
+    color: #eee;
     overflow-x: hidden;
-    color: #e8e0ef;
-}
-
-/* 渐变动态背景 */
-.bg-blur {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(-45deg, #0a0612, #1c0f2e, #271338, #10081b);
-    background-size: 400% 400%;
-    animation: bgMove 15s ease infinite;
-    z-index: -2;
-}
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 .container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-}
-
-.page-header {
     text-align: center;
-    margin-bottom: 45px;
-}
-.page-header h1 {
-    font-size: 42px;
-    letter-spacing: 3px;
-    color: #f4b4d0;
-    text-shadow: 0 0 12px #b85b9077;
-    margin-bottom: 10px;
-}
-.page-header p {
-    color: #a98fb8;
-    font-size: 16px;
 }
 
-/* 播放器玻璃卡片 */
-.player-card {
-    background: rgba(40, 22, 55, 0.35);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-radius: 24px;
-    border: 1px solid rgba(216, 150, 185, 0.18);
-    padding: 40px 30px;
-    text-align: center;
-    margin-bottom: 40px;
-    box-shadow: 0 10px 40px rgba(90, 30, 70, 0.25);
+/* 音频频谱画布 */
+#audioCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.35;
 }
 
-/* 旋转黑胶唱片 */
-.record-box {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 30px;
+/* 旋转唱片封面 */
+.cover-box {
+    width: 240px;
+    height: 240px;
+    margin: 30px auto;
 }
-.record {
+.cover {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(#111 0 42%, #2c1836 44% 48%, #111 50% 100%);
-    box-shadow: 0 0 25px #913b6b55;
-    transition: all 0.3s;
+    background: radial-gradient(#441a44, #110511);
+    border: 4px solid #883377;
+    box-shadow: 0 0 40px #99226666;
+    animation: rotate 20s linear infinite paused;
 }
-.record.play-animate {
-    animation: rotateDisk 8s linear infinite;
+.cover.play {
+    animation-play-state: running;
 }
-@keyframes rotateDisk {
-    from { transform: rotate(0deg); }
+@keyframes rotate {
     to { transform: rotate(360deg); }
 }
 
-.song-text h2 {
-    font-size: 28px;
-    color: #ffc6dd;
-    margin-bottom: 6px;
+.song-info h2 {
+    font-size: 24px;
+    color: #ffb8d8;
+    margin-bottom: 8px;
 }
-.song-text span {
-    color: #b096c2;
-    font-size: 17px;
+.song-info p {
+    color: #b888b8;
+    font-size: 15px;
+    margin-bottom: 35px;
 }
 
 /* 进度条 */
-.progress-area {
-    margin: 35px 0;
-}
-#progress {
-    width: 100%;
-    height: 7px;
-    border-radius: 10px;
-    background: rgba(70, 40, 85, 0.5);
-    outline: none;
-    -webkit-appearance: none;
-}
-#progress::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #f08bb4;
-    cursor: pointer;
-    box-shadow: 0 0 8px #e070a0;
-}
-.time-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    font-size: 13px;
-    color: #947ca8;
-}
-
-/* 控制按钮组 */
-.control-buttons {
+.progress-wrap {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 28px;
+    gap: 12px;
+    margin-bottom: 30px;
 }
-.control-buttons button {
-    background: transparent;
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #331833;
+    border-radius: 99px;
+    cursor: pointer;
+}
+.progress-inner {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #993377, #ff66aa);
+    border-radius: 99px;
+}
+
+/* 控制按钮 */
+.control-box {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.control-box button {
     border: none;
-    color: #e8b6cf;
+    padding: 12px 26px;
+    border-radius: 50px;
+    font-size: 16px;
     cursor: pointer;
-    transition: 0.25s ease;
+    transition: 0.3s;
 }
-.control-buttons button:hover {
-    color: #fff;
-    transform: scale(1.12);
+.prev-btn, .next-btn {
+    background: #2d1535;
+    color: #ffb8d8;
 }
-.play-main {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #c7588a, #8840b0) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 18px #c0548877;
+.play-btn {
+    background: linear-gradient(90deg, #992266, #dd4488);
+    color: white;
+    min-width: 120px;
+}
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #dd448866;
 }
 
-/* 歌单区域 */
-.list-wrap h3 {
-    color: #e2b3ce;
-    margin-bottom: 16px;
-    font-size: 20px;
+/* 上传区域 */
+.upload-area {
+    margin: 30px 0;
 }
-.song-list {
-    background: rgba(32, 18, 44, 0.3);
-    backdrop-filter: blur(8px);
-    border-radius: 18px;
-    border: 1px solid rgba(200, 140, 170, 0.12);
-    overflow: hidden;
-}
-.song-item {
-    padding: 16px 22px;
-    border-bottom: 1px solid rgba(75, 45, 90, 0.3);
+.upload-area label {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid #dd66aa;
+    border-radius: 50px;
     cursor: pointer;
-    transition: 0.25s;
+    color: #ffb8d8;
+    transition: 0.3s;
 }
-.song-item:last-child {
-    border-bottom: none;
-}
-.song-item:hover {
-    background: rgba(180, 90, 130, 0.15);
-}
-.song-item.active {
-    background: rgba(190, 80, 135, 0.22);
-    color: #ffb9d6;
+.upload-area label:hover {
+    background: #dd448822;
 }
 
-/* 移动端适配 */
-@media (max-width: 600px) {
-    .page-header h1 {
-        font-size: 30px;
-    }
-    .record-box {
-        width: 130px;
-        height: 130px;
-    }
-    .control-buttons {
-        gap: 16px;
-    }
-    .play-main {
-        width: 54px;
-        height: 54px;
-    }
+/* 歌单列表 */
+.playlist {
+    margin-top: 20px;
+    text-align: left;
+}
+.play-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #331a38;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 4px 0;
+    transition: 0.2s;
+}
+.play-item:hover {
+    background: #441f4f55;
+}
+.play-item.active {
+    background: #99337744;
+    color: #ffb8d8;
 }
