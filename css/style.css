@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+body {
+    background: #0c0c14;
+    color: #c5c5d8;
+    background-image: radial-gradient(#221428 0, transparent 70%);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.title {
+    text-align: center;
+    color: #e088a8;
+    font-size: 36px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+.subtitle {
+    text-align: center;
+    color: #887799;
+    margin-bottom: 50px;
+}
+.player-box {
+    background: rgba(30, 18, 38, 0.6);
+    border-radius: 16px;
+    padding: 30px;
+    backdrop-filter: blur(8px);
+    border: 1px solid #442a46;
+    margin-bottom: 40px;
+}
+.song-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+#songName {
+    color: #f0a0bf;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+#singer {
+    color: #9988aa;
+}
+/* 进度条 */
+.progress-wrap {
+    margin: 25px 0;
+}
+#progress {
+    width: 100%;
+    height: 6px;
+    background: #2d1f33;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 3px;
+}
+#progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #e07799;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.time {
+    font-size: 13px;
+    color: #887799;
+}
+#currentTime {
+    float: left;
+}
+#totalTime {
+    float: right;
+}
+/* 控制按钮 */
+.control {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+.control button {
+    background: transparent;
+    border: 1px solid #c9789c;
+    color: #e8a0bc;
+    padding: 10px 26px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.control button:hover {
+    background: #c95b88;
+    color: #fff;
+}
+/* 歌单 */
+.song-list {
+    background: rgba(25, 16, 32, 0.5);
+    border-radius: 14px;
+    padding: 20px;
+}
+.song-item {
+    padding: 14px 12px;
+    border-bottom: 1px solid #2c1e33;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.song-item:hover {
+    background: #281a30;
+}
+.song-item.active {
+    color: #f099bb;
+}
