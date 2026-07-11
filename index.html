@@ -3,44 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>霸道南的爱歌馆</title>
+    <title>暮色情歌 | 伤感音乐馆</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <div class="bg-blur"></div>
     <div class="container">
-        <h1 class="title">深夜伤感情歌</h1>
-        <p class="subtitle">耳机分你一半，心事留在歌里</p>
+        <header class="page-header">
+            <h1>暮色伤情歌集</h1>
+            <p>把遗憾藏进旋律，独自慢慢释怀</p>
+        </header>
 
-        <!-- 播放器区域 -->
-        <div class="player-box">
-            <div class="song-info">
-                <h2 id="songName">正在播放</h2>
-                <p id="singer"></p>
+        <!-- 播放器主卡片 -->
+        <div class="player-card">
+            <!-- 黑胶唱片动画 -->
+            <div class="record-box">
+                <div class="record" id="record"></div>
             </div>
 
-            <audio id="audio" preload="auto">
-                <source src="" type="audio/mpeg">
-            
+            <div class="song-text">
+                <h2 id="songName">未播放</h2>
+                <span id="singer">--</span>
+            </div>
 
             <!-- 进度条 -->
-            <div class="progress-wrap">
+            <div class="progress-area">
                 <input type="range" id="progress" min="0" max="100" value="0">
-                <span class="time" id="currentTime">00:00</span>
-                <span class="time" id="totalTime">00:00</span>
+                <div class="time-row">
+                    <span id="currentTime">00:00</span>
+                    <span id="totalTime">00:00</span>
+                </div>
             </div>
 
             <!-- 控制按钮 -->
-            <div class="control">
-                <button id="prev">上一首</button>
-                <button id="playBtn">播放</button>
-                <button id="next">下一首</button>
+            <div class="control-buttons">
+                <button id="prev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
+                </button>
+                <button id="playBtn" class="play-main">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                </button>
+                <button id="next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path></svg>
+                </button>
             </div>
         </div>
 
         <!-- 歌单列表 -->
-        <div class="song-list" id="songList">
-            <!-- JS自动渲染歌曲 -->
+        <div class="list-wrap">
+            <h3>歌单列表</h3>
+            <div class="song-list" id="songList"></div>
         </div>
+
+        <audio id="audio" preload="auto">
     </div>
 
     <script src="./js/main.js"></script>
