@@ -1,20 +1,10 @@
-// 伤感情歌歌单配置，自行替换歌曲文件名
+// 伤感情歌歌单，可自行增减
 const songData = [
-    {
-        name: "可惜没如果",
-        singer: "林俊杰",
-        src: "./music/song1.mp3"
-    },
-    {
-        name: "孤独患者",
-        singer: "陈奕迅",
-        src: "./music/song2.mp3"
-    },
-    {
-        name: "说散就散",
-        singer: "袁维娅",
-        src: "./music/song3.mp3"
-    }
+    { name: "可惜没如果", singer: "林俊杰", src: "./music/song1.mp3" },
+    { name: "孤独患者", singer: "陈奕迅", src: "./music/song2.mp3" },
+    { name: "说散就散", singer: "袁维娅", src: "./music/song3.mp3" },
+    { name: "起风了", singer: "买辣椒也用券", src: "./music/song4.mp3" },
+    { name: "漠河舞厅", singer: "柳爽", src: "./music/song5.mp3" }
 ];
 
 // DOM元素
@@ -28,6 +18,7 @@ const totalTimeEl = document.getElementById('totalTime');
 const songNameEl = document.getElementById('songName');
 const singerEl = document.getElementById('singer');
 const songListEl = document.getElementById('songList');
+const recordDom = document.getElementById('record');
 
 let currentIndex = 0;
 let isPlay = false;
@@ -38,13 +29,13 @@ function renderList() {
     songData.forEach((item, idx) => {
         const div = document.createElement('div');
         div.className = 'song-item' + (idx === currentIndex ? ' active' : '');
-        div.innerHTML = `${item.name} - ${item.singer}`;
+        div.innerText = `${item.name} · ${item.singer}`;
         div.onclick = () => playSong(idx);
         songListEl.appendChild(div);
     })
 }
 
-// 加载对应歌曲
+// 加载歌曲
 function loadSong(index) {
     const song = songData[index];
     audio.src = song.src;
@@ -53,24 +44,27 @@ function loadSong(index) {
     renderList();
 }
 
-// 播放/暂停
+// 播放暂停切换
 function togglePlay() {
     if (isPlay) {
         audio.pause();
-        playBtn.innerText = '播放';
+        playBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>`;
+        recordDom.classList.remove('play-animate');
     } else {
         audio.play();
-        playBtn.innerText = '暂停';
+        playBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>`;
+        recordDom.classList.add('play-animate');
     }
     isPlay = !isPlay;
 }
 
-// 切歌
+// 点击歌单播放
 function playSong(index) {
     currentIndex = index;
     loadSong(currentIndex);
     audio.play();
-    playBtn.innerText = '暂停';
+    playBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>`;
+    recordDom.classList.add('play-animate');
     isPlay = true;
 }
 
@@ -86,7 +80,7 @@ function nextSong() {
     playSong(currentIndex);
 }
 
-// 格式化时间
+// 时间格式化
 function formatTime(time) {
     let m = Math.floor(time / 60);
     let s = Math.floor(time % 60);
@@ -95,27 +89,27 @@ function formatTime(time) {
     return `${m}:${s}`;
 }
 
-// 音频时长加载完成
+// 音频事件
 audio.addEventListener('loadedmetadata', () => {
     totalTimeEl.innerText = formatTime(audio.duration);
     progress.max = audio.duration;
 })
 
-// 播放实时更新进度
 audio.addEventListener('timeupdate', () => {
     progress.value = audio.currentTime;
     currentTimeEl.innerText = formatTime(audio.currentTime);
 })
 
-// 拖动进度条跳转
 progress.addEventListener('input', () => {
     audio.currentTime = progress.value;
 })
 
-// 歌曲播放完毕自动下一首
-audio.addEventListener('ended', nextSong);
+// 播放结束自动下一首
+audio.addEventListener('ended', () => {
+    nextSong();
+})
 
-// 按钮绑定事件
+// 绑定按钮点击
 playBtn.onclick = togglePlay;
 prevBtn.onclick = prevSong;
 nextBtn.onclick = nextSong;
