@@ -3,61 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>暮色情歌 | 伤感音乐馆</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>伤感私藏情歌播放器</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-blur"></div>
-    <div class="container">
-        <header class="page-header">
-            <h1>暮色伤情歌集</h1>
-            <p>把遗憾藏进旋律，独自慢慢释怀</p>
-        </header>
+<div class="container">
+    <!-- 音频可视化画布 -->
+    <canvas id="audioCanvas"></canvas>
 
-        <!-- 播放器主卡片 -->
-        <div class="player-card">
-            <!-- 黑胶唱片动画 -->
-            <div class="record-box">
-                <div class="record" id="record"></div>
-            </div>
-
-            <div class="song-text">
-                <h2 id="songName">未播放</h2>
-                <span id="singer">--</span>
-            </div>
-
-            <!-- 进度条 -->
-            <div class="progress-area">
-                <input type="range" id="progress" min="0" max="100" value="0">
-                <div class="time-row">
-                    <span id="currentTime">00:00</span>
-                    <span id="totalTime">00:00</span>
-                </div>
-            </div>
-
-            <!-- 控制按钮 -->
-            <div class="control-buttons">
-                <button id="prev">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
-                </button>
-                <button id="playBtn" class="play-main">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
-                </button>
-                <button id="next">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path></svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- 歌单列表 -->
-        <div class="list-wrap">
-            <h3>歌单列表</h3>
-            <div class="song-list" id="songList"></div>
-        </div>
-
-        <audio id="audio" preload="auto">
+    <!-- 歌曲封面 -->
+    <div class="cover-box">
+        <div class="cover"></div>
     </div>
 
-    <script src="./js/main.js"></script>
+    <!-- 歌曲信息 -->
+    <div class="song-info">
+        <h2 id="songName">未选择歌曲</h2>
+        <p id="songAuthor">伤感情歌合集</p>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="progress-wrap">
+        <span id="currentTime">00:00</span>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-inner" id="progressInner"></div>
+        </div>
+        <span id="totalTime">00:00</span>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="control-box">
+        <button class="prev-btn" id="prev">上一首</button>
+        <button class="play-btn" id="playBtn">播放</button>
+        <button class="next-btn" id="next">下一首</button>
+    </div>
+
+    <!-- 本地上传歌曲 -->
+    <div class="upload-area">
+        <label for="musicInput">点击添加你的伤感情歌</label>
+        <input type="file" id="musicInput" accept="audio/mp3" multiple hidden>
+    </div>
+
+    <!-- 歌单列表 -->
+    <div class="playlist" id="playlist"></div>
+
+    <!-- 原生音频标签 -->
+    <audio id="audio">
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
